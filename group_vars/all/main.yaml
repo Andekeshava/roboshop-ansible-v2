@@ -1,6 +1,6 @@
 # ansible_user: ec2-user
 # ansible_password: DevOps321
-mysql_root_password: "{{ vault_mysql_password }}"
+mysql_root_password: "{{ mysql_root_password }}"
 
 ansible_user: "{{ vault_ansible_username }}"
 ansible_password: "{{ vault_ansible_password }}"

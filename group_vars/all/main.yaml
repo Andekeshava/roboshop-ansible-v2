@@ -8,8 +8,8 @@ rabbitmq_user: "{{ vault_rabbitmq_user }}"
 rabbitmq_password: "{{ vault_rabbitmq_password }}"
 DB_USER: "{{ vault_db_user }}"
 DB_PASSWORD: "{{ vault_db_password }}"
-AMQP_USER: "{{vault_AMQP_user}}" #evn var from payment.service.j2
-AMQP_PASS: "{{vault_AMQP_pass}}"
+AMQP_USER: "{{ vault_AMQP_user }}" 
+AMQP_PASS: "{{ vault_AMQP_pass }}"
 
 
 mongodb_host: mongodb.jkrdigital.store

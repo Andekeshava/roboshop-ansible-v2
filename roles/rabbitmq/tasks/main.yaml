@@ -15,6 +15,7 @@
     name: rabbitmq-server
     state: started
     enabled: yes
+    
 - name: Creating user and setting up permissions
   community.rabbitmq.rabbitmq_user:
     user: "{{ rabbitmq_user }}" #roboshop

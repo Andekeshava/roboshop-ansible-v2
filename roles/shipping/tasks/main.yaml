@@ -61,21 +61,7 @@
   include_role:
     name: common
     tasks_from: restart  
-
-#   - name: copying and Configuring systemd service 
-#     template:
-#       src: shipping.service.j2
-#       dest: /etc/systemd/system/shipping.service
-
-#   - name: demon reload
-#     systemd_service: 
-#       daemon_reload: true
-
-#   - name: enable and restart
-#     service:
-#       name: shipping
-#       state: restarted
-#       enabled: yes         
+  
 
 
     

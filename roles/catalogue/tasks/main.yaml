@@ -3,6 +3,10 @@
     name: common
     tasks_from: app-setup
 
+- name: nodejs setup
+  include_role:
+    name: common
+    tasks_from: nodejs    
 
 
 
@@ -13,16 +17,8 @@
 
 
 
-# - name: disabling
-#   command: dnf module disable nodejs -y
 
-# - name: enabling 
-#   command: dnf module enable nodejs:24 -y
 
-# - name: Installing nodejs
-#   dnf:
-#     name: nodejs
-#     state: present
 
 # - name: create roboshop system user
 #   user: 
@@ -59,9 +55,7 @@
 #     dest: /app
 #     remote_src: yes
 
-# - name: Install dependencies
-#   community.general.npm:
-#     path: /app             
+      
 
 # - name: copying catalogue service
 #   template:

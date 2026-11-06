@@ -4,6 +4,6 @@
 
 - name: enable and restart {{ component }} 
   service:
-    name: catalogue
+    name: "{{ component }}"
     state: restarted
-    enabled: yes    
+    enabled: yes 

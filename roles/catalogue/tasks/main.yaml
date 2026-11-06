@@ -1,3 +1,7 @@
+- name: print variables
+  debug:
+    msg: "COURSE: {{ course }} and TOPIC: {{ topic }}"
+
 - name: application setup
   include_role:
     name: common

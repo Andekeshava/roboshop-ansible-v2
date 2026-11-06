@@ -3,10 +3,10 @@
     name: common
     tasks_from: app-setup
 
-- name: nodejs setup
+- name: JAVA setup
   include_role:
     name: common
-    tasks_from: nodejs    
+    tasks_from: java   
 
 - name: systemd setup
   include_role:

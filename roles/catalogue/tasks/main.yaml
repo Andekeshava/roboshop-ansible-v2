@@ -8,89 +8,37 @@
     name: common
     tasks_from: nodejs    
 
+- name: systemd setup
+  include_role:
+    name: common
+    tasks_from: systemd-setup 
 
 
+- name: Copying mongo repo
+  copy: 
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
 
+- name: Installing mongo server
+  dnf:
+    name: mongodb-mongosh
+    state: present
 
+- name: check product loaded or not  
+  command: mongosh --host "{{ mongodb_host }}" --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()'
+  register: product_count
 
+- name: product count  
+  debug:
+    msg: "{{ product_count }}"           
 
+- name: Load data    
+  shell: mongosh --host "{{ mongodb_host }}" < /app/db/master-data.js
+  when: " product_count.stdout | int == 0 "
 
+- name: demon reload and app restart
+  include_role:
+    name: common
+    tasks_from: restart       
 
-
-
-
-
-# - name: create roboshop system user
-#   user: 
-#     name: roboshop
-#     create_home: false
-#     home: /app 
-#     system: true
-#     shell: /sbin/nologin
-#     comment: "roboshop system user"
-
-# - name: remove existing app directory
-#   file:
-#     path: /app
-#     state: absent
-
-# - name: remove catalogue.zip
-#   file:
-#     path: /tmp/catalogue.zip
-#     state: absent
-
-# - name: create app directory
-#   file:
-#     path: /app
-#     state: directory
-
-# - name: downloading the code
-#   get_url:
-#     url: https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip
-#     dest: /tmp/catalogue.zip
-
-# - name:  unarchive the code into /app
-#   unarchive:
-#     src: /tmp/catalogue.zip
-#     dest: /app
-#     remote_src: yes
-
-      
-
-# - name: copying catalogue service
-#   template:
-#     src: catalogue.service.j2
-#     dest: /etc/systemd/system/catalogue.service
-
-# - name: Copying mongo repo
-#   copy: 
-#     src: mongo.repo
-#     dest: /etc/yum.repos.d/mongo.repo
-
-# - name: Installing mongo server
-#   dnf:
-#     name: mongodb-mongosh
-#     state: present
-
-# - name: check product loaded or not  
-#   command: mongosh --host "{{ mongodb_host }}" --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()'
-#   register: product_count
-
-# - name: product count  
-#   debug:
-#     msg: "{{ product_count }}"           
-
-# - name: Load data    
-#   shell: mongosh --host "{{ mongodb_host }}" < /app/db/master-data.js
-#   when: " product_count.stdout | int == 0 "
-
-# - name: daemon reload
-#   systemd_service:
-#     daemon_reload: true 
-
-# - name: start and enable 
-#   service:
-#     name: catalogue
-#     state: restarted
-#     enabled: yes    
   
